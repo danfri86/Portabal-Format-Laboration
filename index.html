@@ -28,30 +28,32 @@
 
 <body>
 	<header role="banner">
-				<div class="container">
-
-		<div class="box-12">
-
-			<h1>träningsuträknaren</h1>
-			<nav>
-				<ul>
-					<li>
-			<a id="question" href="#">?</a>
-			</li>
-		</ul>
-
+		<div class="container">
+			<div class="box-12">
+				<h1>träningsuträknaren</h1>
+				<nav>
+					<ul>
+						<li>
+							<a id="question" href="#">?</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
 		</div>
-</div>
 	</header>
+	
 	<div id="bg" class="dn">
 	</div>
-<div class="container">
-	<div id="pop" class="dn">
-		<h1>Lorem</h1>
-		<p>Nunc non urna id nisi aliquam rutrum ultricies quis neque. Vivamus tempor mi vel urna euismod gravida. Vestibulum in leo felis. Nunc non urna id nisi aliquam rutrum ultricies quis neque. Vivamus tempor mi vel urna euismod gravida. Vestibulum in leo felis.  </p>
-		<a href="#" class="btn-blue">knapp</a>
+	
+	<div class="container">
+	
+		<div id="pop" class="dn">
+			<h1>Lorem</h1>
+			<p>Nunc non urna id nisi aliquam rutrum ultricies quis neque. Vivamus tempor mi vel urna euismod gravida. Vestibulum in leo felis. Nunc non urna id nisi aliquam rutrum ultricies quis neque. Vivamus tempor mi vel urna euismod gravida. Vestibulum in leo felis.  </p>
+			<a href="#" class="btn-blue">knapp</a>
+		</div>
 	</div>
-</div>
+	
 	<div class="container">
 
 		<h1 class="pass">ditt träningspass</h1>
@@ -77,8 +79,8 @@
 			</div>
 
 
-				<div class="box-12">
-			<iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.se/?ie=UTF8&amp;ll=59.378163,13.498421&amp;spn=0.160363,0.450439&amp;t=m&amp;z=12&amp;output=embed"></iframe>
+			<div class="box-12">
+				<div id="map_canvas"></div>
 			</div>
 
 
@@ -105,28 +107,44 @@
 			</div>
 
 		<div class="box-12 info btminfo">
-				<ul>
-					<li>
-						<strong>Maxpuls</strong>
-						<i>xxx bpm</i>
-						<img class="mat" src="incl/img/hjerta.png" width="60">
-					</li>
-					<li>
-						<strong>Snittpuls</strong>
-						<i>xxx bpm</i>
-						<img class="mat" src="incl/img/hjerta.png" width="60">
-
-					</li>
-					</ul>
-				</div>
+			<ul>
+				<li>
+					<strong>Maxpuls</strong>
+					<i id="maxpuls"></i>
+					<img class="mat" src="incl/img/hjerta.png" width="60">
+				</li>
+				<li>
+					<strong>Snittpuls</strong>
+					<i id="avgpuls"></i>
+					<img class="mat" src="incl/img/hjerta.png" width="60">
 			
+				</li>
+			</ul>
+		</div>
+		
+		<div class="box-12 info btminfo">
+			<ul>
+				<li>
+					<strong>Maxhastighet</strong>
+					<i id="maxhastighet"></i>
+					<img class="mat" src="incl/img/matare.png" width="60">
+				</li>
+				<li>
+					<strong>Snitthastighet</strong>
+					<i id="avghastighet"></i>
+					<img class="mat" src="incl/img/matare.png" width="60">
+			
+				</li>
+			</ul>
+		</div>
 
 	</div><!--container-->
 
+<footer>
+	<p>Gjord av <a href="http://www.alexanderhansson.se" target="_blank">Alexander Hansson</a>, <a href="http://www.oskarkroon.se" target="_blank">Oskar Kroon</a> & <a href="http://www.danielfriberg.se" target="_blank">Daniel Friberg</a><br/>maj 2013</p>
+</footer>
 
-
-<footer><p>Gjord av Alexander Hansson, Oskar Kroon & Daniel Friberg <br> maj 2013</footer>
-
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="application/javascript" src="incl/functions.js"></script>
 <script type="application/javascript" src="incl/script.js"></script>
 
