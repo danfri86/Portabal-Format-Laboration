@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Parse XML using Javascript</title>
+        <link rel="stylesheet" href="styles.css" type="text/css" media="all">
+    </head>
+    <body>
+       <h1>Parsing XML data</h1>
+       <script type="text/javascript">
+          if (window.XMLHttpRequest)
+          {// code for IE7+, Firefox, Chrome, Opera, Safari
+              xmlhttp=new XMLHttpRequest();
+          }
+          else
+          {// code for IE6, IE5
+              xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+          }
+          xmlhttp.open("GET","G1.TCX",false);
+          xmlhttp.send();
+          	// document.write(xmlhttp.responseText);
+          xmlDoc=xmlhttp.responseXML;
+          y=xmlDoc.documentElement;
+          //document.write(y);
+          x=y.getElementsByTagName("Trackpoint");
+          //document.write(x);
+          document.write("I filen finns "+ x.length+" trackpoints totalt<br /><br />");
+          for (i=0;i<x.length;i++)
+          {
+              document.write("Nu processas trackpoint nummer:  "+i);
+              lat=x[i].getElementsByTagName("LatitudeDegrees");
+              document.write(" "+lat[0].nodeName);
+              document.write(": ");
+              document.write(lat[0].childNodes[0].nodeValue);
+
+              lon=x[i].getElementsByTagName("LongitudeDegrees");
+              document.write("   "+lon[0].nodeName);
+              document.write(": ");
+              document.write(lon[0].childNodes[0].nodeValue);
+              document.write("<br />");
+          }
+      </script>
+    </body>
+</html>
+
