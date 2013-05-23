@@ -1,3 +1,8 @@
+// Denna fil innehåller alla script som behövs
+
+/*-----------------------
+Hämta datum då träningen utfördes
+------------------------*/
 if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
 	xmlhttp=new XMLHttpRequest();  //Ajaxanrop
 } else { // code for IE6, IE5
@@ -13,3 +18,6 @@ var datum = xmlDoc.getElementsByTagName("Id")[0].childNodes[0].nodeValue.split("
 
 document.write("Datum: "+ datum);
 //document.write("Datum: "+ datum.substring(0,10));
+/*-----------------------
+SLUT
+------------------------*/
