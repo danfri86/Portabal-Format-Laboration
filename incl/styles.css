@@ -96,6 +96,7 @@ header a:hover {
 
 
 .info ul{
+	width: 100%;
 	list-style: none;
 	border-top: 1px solid rgba(0,0,0,.2);
 	border-bottom: 1px solid rgba(0,0,0,.2);
@@ -114,6 +115,10 @@ header a:hover {
 	width: 33%;
 	margin-right: -.25em;
 	padding: 1em 1em 2em 1em;
+}
+
+.info.btminfo ul li {
+	width: 50%;
 }
 
 
