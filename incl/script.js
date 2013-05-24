@@ -18,7 +18,7 @@ function traningtotal() {
 		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	
-	xmlhttp.open("GET","incl/G1.TCX",false);
+	xmlhttp.open("GET","incl/G1.xml",false);
 	xmlhttp.send();
 	xmlDoc=xmlhttp.responseXML;
 	
@@ -111,18 +111,30 @@ SLUT
 KARTA
 ------------------------*/
 function karta() {
-	var points = [
-		new google.maps.LatLng(59.4111992, 13.5304104),
-		new google.maps.LatLng(59.4193453, 13.5311650),
-		new google.maps.LatLng(59.4232704, 13.5318187),
-		new google.maps.LatLng(59.4245685, 13.5335306),
-		new google.maps.LatLng(59.4252481, 13.5342259),
-		new google.maps.LatLng(59.4269343, 13.5346784),
-		new google.maps.LatLng(59.4285858, 13.5314505),
-		new google.maps.LatLng(59.4124066, 13.5303183)
-	];
+
+	// Startkod för att kunna hämta data
+	if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();  //Ajaxanrop
+	} else { // code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
 	
-	var myLatlng = points[2];
+	xmlhttp.open("GET","incl/G1.xml",false);
+	xmlhttp.send();
+	xmlDoc=xmlhttp.responseXML;
+
+	var positions = xmlDoc.getElementsByTagName("Position");
+	var i;
+
+	var points = [];
+
+		for (i = 0; i < positions.length-1; i++) {
+
+
+		points[i] = new google.maps.LatLng(positions[i].getElementsByTagName("LatitudeDegrees")[0].childNodes[0].nodeValue, positions[i].getElementsByTagName("LongitudeDegrees")[0].childNodes[0].nodeValue);
+	}
+	
+	var myLatlng = points[0];
 	var myOptions = {
 		zoom: 13,
 		center: myLatlng,
@@ -134,8 +146,8 @@ function karta() {
 	var path = new google.maps.Polyline({
 		path: points,
 		strokeColor: "#FF0000",
-		strokeOpacity: 1.0,
-		strokeWeight: 4
+		strokeOpacity: 0.8,
+		strokeWeight: 2
 	});
 	
 	path.setMap(map);
@@ -143,3 +155,57 @@ function karta() {
 /*-----------------------
 SLUT
 ------------------------*/
+
+/*-----------------------
+GRAF 1
+------------------------*/
+
+window.addEventListener ("load", eventWindowLoaded, false);
+
+function eventWindowLoaded(){
+	canvasApp();
+} 
+
+function canvasApp (){
+	
+	var theCanvas = document.getElementById ("canvasOne");
+	var context = theCanvas.getContext ("2d");
+	
+	drawScreen();
+
+ 		function drawScreen(){	
+
+ 		 var theCanvas = document.getElementById("canvasOne");
+		 var x = theCanvas.width / 2;
+     	 var y = theCanvas.height / 2;
+     	 var radius = 100;
+
+		//Bakgrund 	
+		var backgroundImage = new Image(); 
+		backgroundImage.src = 'incl/img/graf.png'; 
+		context.drawImage(backgroundImage, 0, 0);
+   		context.fillRect(0, 0, canvas.width, canvas.height);
+		context.strokeStyle = "#ababab";
+		context.lineWidth = 15;
+
+		//cirkel under
+	    context.beginPath();
+	    context.arc(x, (y+20), radius, 0, Math.PI, false);
+	    context.fillStyle = 'yellow';
+	    context.fill();
+	    context.lineWidth = 10;
+	    context.strokeStyle = 'black';
+	    context.stroke();
+	    context.closePath();
+	   	//cirkel mun
+	    context.beginPath();
+	    context.arc(x, (y+32), radius-50, 0, Math.PI, false);
+	    context.fillStyle = 'yellow';
+	    context.fill();
+	    context.lineWidth = 5;
+	    context.strokeStyle = 'black';
+	    context.stroke();
+		}						
+}
+
+
