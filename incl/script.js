@@ -328,7 +328,7 @@ function pulsgraf() {
 	 var n=str.split(" ");
 
 		
-	var m = "data : [" + n + "]";
+	var m = "['2012'," + "'" + n + "'"+ "],";
         var data = google.visualization.arrayToDataTable([
           ['Year', 'Sales'],
           ['2004',  10000000],
