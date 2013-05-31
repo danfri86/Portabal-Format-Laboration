@@ -166,8 +166,10 @@ function pulsgraf() {
 	
 	var str = "";
 	for(var i=0; i<puls.length-1; i++) {
-		str = str+puls[i].getElementsByTagName("Value")[0].childNodes[0].nodeValue+",";
+		str += puls[i].getElementsByTagName("Value")[0].childNodes[0].nodeValue+",";
 	}
+
+	alert(str);
 					
 	// Kod för chart.js
 	var data = {
