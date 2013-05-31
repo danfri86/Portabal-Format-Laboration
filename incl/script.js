@@ -163,15 +163,10 @@ GRAF MED CHART.JS
 function pulsgraf() {
 	// Egna variabler
 	var puls = xmlDoc.getElementsByTagName("HeartRateBpm");
-	
 	var str = "";
+	
 	for(var i=0; i<puls.length; i++) {
-		//Denna if sats gör vi för att ta bort , efter sista värdet
-		if(i == puls.length-1){
-			str = str+puls[i].getElementsByTagName("Value")[0].childNodes[0].nodeValue;
-		} else {
-			str = str+puls[i].getElementsByTagName("Value")[0].childNodes[0].nodeValue+",";
-		}
+		str = str+puls[i].getElementsByTagName("Value")[0].childNodes[0].nodeValue;
 	}
 						
 	// Kod för chart.js
