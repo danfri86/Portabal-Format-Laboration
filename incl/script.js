@@ -165,12 +165,24 @@ function pulsgraf() {
 	var puls = xmlDoc.getElementsByTagName("HeartRateBpm");
 	
 	var str = "";
+<<<<<<< HEAD
 	for(var i=0; i<puls.length-1; i++) {
 		str += puls[i].getElementsByTagName("Value")[0].childNodes[0].nodeValue+",";
 	}
 
 	alert(str);
 					
+=======
+	for(var i=0; i<puls.length; i++) {
+		//Denna if sats gör vi för att ta bort , efter sista värdet
+		if(i == puls.length-1){
+			str = str+puls[i].getElementsByTagName("Value")[0].childNodes[0].nodeValue;
+		} else {
+			str = str+puls[i].getElementsByTagName("Value")[0].childNodes[0].nodeValue+",";
+		}
+	}
+						
+>>>>>>> 91325466898462da35ded7e3b5d16c5d1c85c5d9
 	// Kod för chart.js
 	var data = {
 		labels : ["January","February","March","April","May","June","July"],
