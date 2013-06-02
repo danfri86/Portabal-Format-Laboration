@@ -181,7 +181,6 @@ function pulsgraf() {
 	 var n=str.split(" "); 
 		
 	var m = "data : [" + n + "]";
-		alert(m);				
 	// Kod för chart.js
 	var data = {
 		labels : ["January","February","March","April","May","June","July"],
@@ -306,44 +305,7 @@ function pulsgraf() {
 }
 
 
-	  google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
 
-
-	// Egna variabler
-	var puls = xmlDoc.getElementsByTagName("HeartRateBpm");
-	
-	var str = "";
-
-	for(var i=0; i<puls.length; i++) {
-		//Denna if sats gör vi för att ta bort , efter sista värdet
-		if(i == puls.length-1){
-			str = str+puls[i].getElementsByTagName("Value")[0].childNodes[0].nodeValue;
-		} else {
-			str = str+puls[i].getElementsByTagName("Value")[0].childNodes[0].nodeValue + " ";
-		}
-	}
-
-	 var n=str.split(" ");
-
-		
-	var m = "['2012'," + "'" + n + "'"+ "],";
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales'],
-          ['2004',  10000000],
-          ['2005',  1170],
-          ['2006',  k],
-          ['2007',  1030]
-        ]);
-
-        var options = {
-          title: 'Company Performance'
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
 /*-----------------------
 SLUT
 ------------------------*/
