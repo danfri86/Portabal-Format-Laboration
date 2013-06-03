@@ -4,7 +4,7 @@
 window.onload = function() {
 	traningtotal();
 	karta();
-	pulsgraf();
+	canvasApp();
 }
 
 /*-----------------------
@@ -19,7 +19,7 @@ function traningtotal() {
 		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	
-	xmlhttp.open("GET","incl/G1.xml",false);
+	xmlhttp.open("GET","incl/G2.TCX",false);
 	xmlhttp.send();
 	xmlDoc=xmlhttp.responseXML;
 	
@@ -120,7 +120,7 @@ function karta() {
 		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	
-	xmlhttp.open("GET","incl/G1.xml",false);
+	xmlhttp.open("GET","incl/G2.TCX",false);
 	xmlhttp.send();
 	xmlDoc=xmlhttp.responseXML;
 
@@ -158,150 +158,112 @@ SLUT
 ------------------------*/
 
 /*-----------------------
-GRAF MED CHART.JS
+GRAF 1
 ------------------------*/
-function pulsgraf() {
+function canvasApp (){
 
-
-
-	// Egna variabler
+	var theCanvas = document.getElementById ("canvasOne");
+	var context = theCanvas.getContext ("2d");
+	
+	//Detta sätter x och y start till bottom left, men gör också text spegelvänd. Fix nedan vid textelementen
+	context.translate(0, theCanvas.height);
+	context.scale(1, -1);
+	
+	var windowWidth = theCanvas.width;
+	var windowHeight = theCanvas.height;
+	
+	//Bakgrund
+	context.fillStyle = "#eee";
+	context.fillRect(0,0,windowWidth,windowHeight);
+	
 	var puls = xmlDoc.getElementsByTagName("HeartRateBpm");
 	
-	var str = "";
+	// Ram y-axel
+	context.lineWidth = 1;
+	context.beginPath();
+	context.moveTo(40, 30);
+	context.lineTo(40, 240 );
+	context.lineJoin = 'miter';
+	context.strokeStyle ="#FE4365";
+	context.stroke();
+	
+	// Ram x-axel
+	context.lineWidth = 1;
+	context.beginPath();
+	context.moveTo(40, 30);
+	context.lineTo(890, 30);
+	context.lineJoin = 'miter';
+	context.stroke();
+	
+	context.lineWidth = 1;
+	context.beginPath();
+	context.moveTo(xmlDoc.getElementsByTagName("DistanceMeters")[1].childNodes[0].nodeValue/10+43, puls[0].getElementsByTagName("Value")[0].childNodes[0].nodeValue);
+	//Loopa igenom alla puls- och distansdata, förutom de första, de används ovan.
+	for(var i=2; i<puls.length; i++) {
+		context.lineTo(xmlDoc.getElementsByTagName("DistanceMeters")[i].childNodes[0].nodeValue/10+43, puls[i].getElementsByTagName("Value")[0].childNodes[0].nodeValue);
+	}
+	context.lineJoin = 'miter';
+	context.stroke();
 
-	for(var i=0; i<puls.length; i++) {
-		//Denna if sats gör vi för att ta bort , efter sista värdet
-		if(i == puls.length-1){
-			str = str+puls[i].getElementsByTagName("Value")[0].childNodes[0].nodeValue;
-		} else {
-			str = str+puls[i].getElementsByTagName("Value")[0].childNodes[0].nodeValue + " ";
-		}
-	}
+	context.scale(1, -1); //För att vända texten spegelrätt
+	context.fillStyle = "#333";
+	context.font = "12px sans-serif";
+	context.textBaseline = "top";
+	context.fillText("Puls", 50, -240);
+	context.scale(1, -1); //För att vända texten spegelrätt
+	
+	context.scale(1, -1); //För att vända texten spegelrätt
+	context.fillStyle = "#333";
+	context.font = "12px sans-serif";
+	context.textBaseline = "top";
+	context.fillText("Distans", 850, -50);
+	context.scale(1, -1); //För att vända texten spegelrätt
 
-	 var n=str.split(" "); 
-		
-	var m = "data : [" + n + "]";
-	// Kod för chart.js
-	var data = {
-		labels : ["January","February","March","April","May","June","July"],
-		datasets : [
-			{
-				fillColor : "rgba(255,10,0,0.3)",
-				strokeColor : "rgba(150,0,0,0.4)",
-				pointColor : "rgba(151,187,205,1)",
-				pointStrokeColor : "#fff",
-				
-				data : [n]
-				
-				/*
-				data : [
-					n
-				]*/
-			}
-		]
-	}
-	
-	var options = {
-	
-		//Boolean - If we show the scale above the chart data			
-		scaleOverlay : false,
-		
-		//Boolean - If we want to override with a hard coded scale
-		scaleOverride : false,
-		
-		//** Required if scaleOverride is true **
-		//Number - The number of steps in a hard coded scale
-		scaleSteps : null,
-		//Number - The value jump in the hard coded scale
-		scaleStepWidth : null,
-		//Number - The scale starting value
-		scaleStartValue : null,
-		
-		/* Egna puls-values på y-axeln. Byt ut mot ovan om det behövs
-		
-		//Boolean - If we want to override with a hard coded scale
-		scaleOverride : true,
-		
-		//** Required if scaleOverride is true **
-		//Number - The number of steps in a hard coded scale
-		scaleSteps : 15,
-		//Number - The value jump in the hard coded scale
-		scaleStepWidth : 10,
-		//Number - The scale starting value
-		scaleStartValue : 60,
-		*/
-	
-		//String - Colour of the scale line	
-		scaleLineColor : "rgba(0,0,0,.1)",
-		
-		//Number - Pixel width of the scale line	
-		scaleLineWidth : 1,
-	
-		//Boolean - Whether to show labels on the scale	
-		scaleShowLabels : true,
-		
-		//Interpolated JS string - can access value
-		scaleLabel : "<%=value%>",
-		
-		//String - Scale label font declaration for the scale label
-		scaleFontFamily : "'Arial'",
-		
-		//Number - Scale label font size in pixels	
-		scaleFontSize : 12,
-		
-		//String - Scale label font weight style	
-		scaleFontStyle : "normal",
-		
-		//String - Scale label font colour	
-		scaleFontColor : "#666",	
-		
-		///Boolean - Whether grid lines are shown across the chart
-		scaleShowGridLines : true,
-		
-		//String - Colour of the grid lines
-		scaleGridLineColor : "rgba(0,0,0,.05)",
-		
-		//Number - Width of the grid lines
-		scaleGridLineWidth : 1,	
-		
-		//Boolean - Whether the line is curved between points
-		bezierCurve : false,
-		
-		//Boolean - Whether to show a dot for each point
-		pointDot : false,
-		
-		//Number - Radius of each point dot in pixels
-		pointDotRadius : 3,
-		
-		//Number - Pixel width of point dot stroke
-		pointDotStrokeWidth : 1,
-		
-		//Boolean - Whether to show a stroke for datasets
-		datasetStroke : true,
-		
-		//Number - Pixel width of dataset stroke
-		datasetStrokeWidth : 2,
-		
-		//Boolean - Whether to fill the dataset with a colour
-		datasetFill : true,
-		
-		//Boolean - Whether to animate the chart
-		animation : false,
-	
-		//Number - Number of animation steps
-		animationSteps : 60,
-		
-		//String - Animation easing effect
-		animationEasing : "easeOutQuart",
-	
-		//Function - Fires when the animation is complete
-		onAnimationComplete : null
-		
-	}
-	
-	//Get the context of the canvas element we want to select
-	var ctx = document.getElementById("myChart").getContext("2d");
-	var myNewChart = new Chart(ctx).Line(data,options);
+	context.scale(1, -1); //För att vända texten spegelrätt
+	context.fillStyle = "#333";
+	context.font = "12px sans-serif";
+	context.textBaseline = "top";
+	context.fillText("0", 25, -40);
+	context.scale(1, -1); //För att vända texten spegelrätt
+
+	context.scale(1, -1); //För att vända texten spegelrätt
+	context.fillStyle = "#333";
+	context.font = "12px sans-serif";
+	context.textBaseline = "top";
+	context.fillText("0 km                       1km                       2km                       3km                       4km                       5km                       6km                       7km                       8km", 40, -22);
+	context.scale(1, -1); //För att vända texten spegelrätt
+
+	/*
+		PULS
+				*/
+
+	context.scale(1, -1); //För att vända texten spegelrätt
+	context.fillStyle = "#333";
+	context.font = "12px sans-serif";
+	context.textBaseline = "top";
+	context.fillText("50", 20, -78);
+	context.scale(1, -1); //För att vända texten spegelrätt
+
+	context.scale(1, -1); //För att vända texten spegelrätt
+	context.fillStyle = "#333";
+	context.font = "12px sans-serif";
+	context.textBaseline = "top";
+	context.fillText("100", 15, -115);
+	context.scale(1, -1); //För att vända texten spegelrätt
+
+	context.scale(1, -1); //För att vända texten spegelrätt
+	context.fillStyle = "#333";
+	context.font = "12px sans-serif";
+	context.textBaseline = "top";
+	context.fillText("150", 15, -154);
+	context.scale(1, -1); //För att vända texten spegelrätt
+
+	context.scale(1, -1); //För att vända texten spegelrätt
+	context.fillStyle = "#333";
+	context.font = "12px sans-serif";
+	context.textBaseline = "top";
+	context.fillText("200", 15, -194);
+	context.scale(1, -1); //För att vända texten spegelrätt
 }
 
 
@@ -310,55 +272,7 @@ function pulsgraf() {
 SLUT
 ------------------------*/
 
-/*-----------------------
-GRAF 1
-------------------------*/
 /*
-window.addEventListener ("load", eventWindowLoaded, false);
-
-function eventWindowLoaded(){
-	canvasApp();
-} 
-
-function canvasApp (){
-	
-	var theCanvas = document.getElementById ("canvasOne");
-	var context = theCanvas.getContext ("2d");
-	
-	drawScreen();
-
- 		function drawScreen(){	
-
- 		 var theCanvas = document.getElementById("canvasOne");
-		 var x = theCanvas.width / 2;
-     	 var y = theCanvas.height / 2;
-     	 var radius = 100;
-
-		//Bakgrund 	
-		var backgroundImage = new Image(); 
-		backgroundImage.src = 'incl/img/graf.png'; 
-		context.drawImage(backgroundImage, 0, 0);
-   		context.fillRect(0, 0, canvas.width, canvas.height);
-		context.strokeStyle = "#ababab";
-		context.lineWidth = 15;
-
-		//cirkel under
-	    context.beginPath();
-	    context.arc(x, (y+20), radius, 0, Math.PI, false);
-	    context.fillStyle = 'yellow';
-	    context.fill();
-	    context.lineWidth = 10;
-	    context.strokeStyle = 'black';
-	    context.stroke();
-	    context.closePath();
-	   	//cirkel mun
-	    context.beginPath();
-	    context.arc(x, (y+32), radius-50, 0, Math.PI, false);
-	    context.fillStyle = 'yellow';
-	    context.fill();
-	    context.lineWidth = 5;
-	    context.strokeStyle = 'black';
-	    context.stroke();
-		}						
-}
-*/
+for(var i=2; i<puls.length; i++) {
+		context.lineTo(distansout.childNodes[i].nodeValue, puls[i].getElementsByTagName("Value")[0].childNodes[0].nodeValue);
+	}*/

@@ -43,7 +43,7 @@
             <AltitudeMeters>85.6945801</AltitudeMeters>
             <DistanceMeters>4.1215487</DistanceMeters>
             <HeartRateBpm xsi:type="HeartRateInBeatsPerMinute_t">
-              <Value>111</Value>
+              <Value>1115723</Value>
             </HeartRateBpm>
             <SensorState>Absent</SensorState>
             <Extensions>
