@@ -234,7 +234,7 @@ function canvasApp (){
 	context.fillStyle = "#333";
 	context.font = "12px sans-serif";
 	context.textBaseline = "top";
-	context.fillText("0 km                       1km                       2km                       3km                       4km                       5km                       6km                       7km                       8km", 40, -22);
+	context.fillText("0 km                        1km                         2km                         3km                         4km                         5km                        6km                         7km                        8km", 40, -22);
 	context.scale(1, -1); //För att vända texten spegelrätt
 
 	/*
