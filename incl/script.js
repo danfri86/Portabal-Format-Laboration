@@ -184,8 +184,9 @@ function canvasApp (){
 	context.moveTo(40, 30);
 	context.lineTo(40, 240 );
 	context.lineJoin = 'miter';
-	context.strokeStyle ="#FE4365";
+	context.strokeStyle ="#999";
 	context.stroke();
+	context.closePath();
 	
 	// Ram x-axel
 	context.lineWidth = 1;
@@ -194,8 +195,10 @@ function canvasApp (){
 	context.lineTo(890, 30);
 	context.lineJoin = 'miter';
 	context.stroke();
+	context.closePath();
 	
 	context.lineWidth = 1;
+	context.strokeStyle ="#FE4365";
 	context.beginPath();
 	context.moveTo(xmlDoc.getElementsByTagName("DistanceMeters")[1].childNodes[0].nodeValue/10+43, puls[0].getElementsByTagName("Value")[0].childNodes[0].nodeValue);
 	//Loopa igenom alla puls- och distansdata, förutom de första, de används ovan.
@@ -204,6 +207,7 @@ function canvasApp (){
 	}
 	context.lineJoin = 'miter';
 	context.stroke();
+	context.closePath();
 
 	context.scale(1, -1); //För att vända texten spegelrätt
 	context.fillStyle = "#333";
