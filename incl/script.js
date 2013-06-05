@@ -19,7 +19,7 @@ function traningtotal() {
 		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	
-	xmlhttp.open("GET","incl/G2.TCX",false);
+	xmlhttp.open("GET","incl/G1.xml",false);
 	xmlhttp.send();
 	xmlDoc=xmlhttp.responseXML;
 	
@@ -38,13 +38,25 @@ function traningtotal() {
 	Total träningstid
 	*/
 	var tidbox = document.getElementById("totaltid");
+
 		
 	// Hämta traningstid från .tcx filen
-	var tid = xmlDoc.getElementsByTagName("TotalTimeSeconds")[0].childNodes[0].nodeValue;
-	
-	var tidint = parseInt(tid)/60;
-	var tidtxt = document.createTextNode(parseInt(tidint)+" min");
+	var sekIn = xmlDoc.getElementsByTagName("TotalTimeSeconds")[0].childNodes[0].nodeValue;
+	var tidInt = xmlDoc.getElementsByTagName("TotalTimeSeconds")[0].childNodes[0].nodeValue;
+	var tidAvgKm = tidInt/60;
+
+   
+    var tidUt =
+    Math.floor(((sekIn/86400)%1)*24)+':'+
+    Math.floor(((sekIn/3600)%1)*60)+':'+
+    Math.round(((sekIn/60)%1)*60);
+
+    var tidbox = document.getElementById("totaltid");
+
+
+    var tidtxt = document.createTextNode(tidUt);
 	tidbox.appendChild(tidtxt);
+	
 	
 	/*
 	Total distans
@@ -99,7 +111,7 @@ function traningtotal() {
 	var avghastighetbox = document.getElementById("avghastighet");
 		
 	// Hämta distans från .tcx filen
-	var avghastighet = distanskm/(tidint/60);
+	var avghastighet = distanskm/(tidAvgKm/60);
 	
 	var avghastighettxt = document.createTextNode(avghastighet.toFixed(2)+" km/h");
 	avghastighetbox.appendChild(avghastighettxt);
@@ -120,7 +132,7 @@ function karta() {
 		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	
-	xmlhttp.open("GET","incl/G2.TCX",false);
+	xmlhttp.open("GET","incl/G1.xml",false);
 	xmlhttp.send();
 	xmlDoc=xmlhttp.responseXML;
 
